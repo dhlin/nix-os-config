@@ -2,9 +2,10 @@
 
 git submodule update --init --recursive
 
-setup="cd $PWD; source .zshrc; cd -"
-zshrc="$HOME/.zshrc"
+setup="export ZDOTDIR=$PWD"
+zshenv="$HOME/.zshenv"
+init=$zshenv
 
-if ! grep -qs "$setup" $zshrc; then
-  echo "$setup" >> $zshrc
+if ! grep -qs "$setup" $init; then
+  echo "$setup" >> $init
 fi

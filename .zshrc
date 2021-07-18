@@ -1,5 +1,5 @@
-source antigen/antigen.zsh
+source $ZDOTDIR/zinit/zinit.zsh
 
-antigen init .antigenrc
+source $ZDOTDIR/.zinit.zsh
 
 bindkey \^U backward-kill-line
