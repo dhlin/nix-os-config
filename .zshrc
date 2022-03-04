@@ -8,3 +8,4 @@ bindkey \^U backward-kill-line
 
 export TERM=xterm-256color
 
+source $ZDOTDIR/alias.sh
