@@ -51,6 +51,11 @@
       terminal = "xterm-256color";
     };
 
+    vim = {
+      enable = true;
+      defaultEditor = true;
+    };
+
     zoxide = {
       enable = true;
       enableZshIntegration = true;
