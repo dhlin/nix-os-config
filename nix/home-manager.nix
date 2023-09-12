@@ -1,10 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   home = {
-    username = builtins.getEnv "USER";
-    homeDirectory = builtins.getEnv "HOME";
-
+    packages = [
+      # home-manager 23.05 doesn't have ripgrep config
+      pkgs.ripgrep
+    ];
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
     # introduces backwards incompatible changes.
@@ -14,7 +15,7 @@
     # release notes.
     stateVersion = "23.05"; # Please read the comment before changing.
     sessionVariables = {
-      DIRENV_LOG_FORMAT = "";      
+      DIRENV_LOG_FORMAT = "";
     };
   };
 
@@ -42,8 +43,6 @@
     home-manager.enable = true;
 
     htop.enable = true;
-
-    ripgrep.enable = true;
 
     tmux = {
       enable = true;
