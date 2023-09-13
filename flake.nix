@@ -13,8 +13,8 @@
 
   outputs = inputs @ { self, nixpkgs, home-manager, ... }:
     let
-      user = "dhlin";
-      system = "x86_64-linux";
+      user = builtins.getEnv "USER";
+      system = builtins.currentSystem;
     in
     {
       homeConfigurations = (
