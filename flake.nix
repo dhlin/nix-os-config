@@ -35,9 +35,8 @@
       );
 
       nixosConfigurations = (
-        import ./nix/nisos.nix {
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager system user location;
+        import ./nix/nixos.nix {
+          inherit inputs nixpkgs home-manager system user;
         }
       );
     };
