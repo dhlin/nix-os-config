@@ -9,9 +9,14 @@
         url = "github:nix-community/home-manager/release-23.05";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+
+      nix-darwin = {
+        url = "github:lnl7/nix-darwin/master";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
     };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, nix-darwin, ... }:
     let
       user = builtins.getEnv "USER";
       system = builtins.currentSystem;
@@ -20,6 +25,12 @@
       homeConfigurations = (
         import ./nix/home.nix {
           inherit nixpkgs home-manager system user;
+        }
+      );
+
+      darwinConfigurations = (
+        import ./nix/darwin.nix {
+          inherit nixpkgs home-manager nix-darwin system user;
         }
       );
     };
