@@ -33,5 +33,12 @@
           inherit nixpkgs home-manager nix-darwin system user;
         }
       );
+
+      nixosConfigurations = (
+        import ./nix/nisos.nix {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs home-manager system user location;
+        }
+      );
     };
 }
