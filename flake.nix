@@ -36,7 +36,8 @@
 
       nixosConfigurations = (
         import ./nix/nixos.nix {
-          inherit inputs nixpkgs home-manager system user;
+          user = "dhlin";
+          inherit inputs nixpkgs home-manager system;
         }
       );
     };

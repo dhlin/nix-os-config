@@ -1,8 +1,8 @@
-{ config, pkgs, user, ... }:
+{ config, pkgs, system, user, ... }:
 
 {
   imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
   ];
 
   boot = {
@@ -20,15 +20,19 @@
       auto-optimise-store = true
     '';
     gc = {
-      automatic = true;
-      interval.Day = 7;
       options = "--delete-older-than 7d";
     };
     package = pkgs.nix;
     settings.experimental-features = "nix-command flakes";
   };
 
-  networking.firewall.enable = false;
+  networking = {
+    firewall.enable = false;
+    useDHCP = false;
+    interfaces.ens0.useDHCP = true;
+  };
+
+  nixpkgs.hostPlatform = "${system}";
 
   programs.zsh.enable = true;
 
@@ -41,7 +45,7 @@
           PermitRootLogin = "no";
         };
       };
-    tailscale.enable = true;
+    # tailscale.enable = true;
   };
 
   system.stateVersion = "23.05";
