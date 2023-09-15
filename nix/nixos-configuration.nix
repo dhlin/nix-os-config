@@ -29,7 +29,7 @@
   networking = {
     firewall.enable = false;
     useDHCP = false;
-    interfaces.ens0.useDHCP = true;
+    interfaces.enp0s1.useDHCP = true;
   };
 
   nixpkgs.hostPlatform = "${system}";
@@ -45,7 +45,6 @@
           PermitRootLogin = "no";
         };
       };
-    # tailscale.enable = true;
   };
 
   system.stateVersion = "23.05";
