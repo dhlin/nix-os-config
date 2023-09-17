@@ -2,7 +2,7 @@
 
 {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix # generated file in the system
   ];
 
   boot = {
@@ -28,8 +28,6 @@
 
   networking = {
     firewall.enable = false;
-    useDHCP = false;
-    interfaces.enp0s1.useDHCP = true;
   };
 
   nixpkgs.hostPlatform = "${system}";
