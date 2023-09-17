@@ -6,7 +6,7 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_15;
+    kernelPackages = pkgs.linuxPackages_latest;
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
@@ -34,6 +34,8 @@
 
   programs.zsh.enable = true;
 
+  security.sudo.wheelNeedsPassword = false;
+  
   services = {
     openssh =
       {
