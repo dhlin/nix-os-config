@@ -2,9 +2,9 @@
 
 {
   home = {
-    packages = [
-      # home-manager 23.05 doesn't have ripgrep config
-      pkgs.ripgrep
+    packages = with pkgs; [
+      ripgrep
+      scc
     ];
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -64,15 +64,20 @@
     zsh = {
       enable = true;
       enableAutosuggestions = true;
+      defaultKeymap = "emacs";
       initExtra = ''
         bindkey \^U backward-kill-line
-        source "$HOME"/nix-os-config/dotfiles/.p10k.zsh
       '';
       plugins = [
         {
           name = "powerlevel10k";
           src = pkgs.zsh-powerlevel10k;
           file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+        {
+          name = "powerlevel10k-config";
+          src = ../dotfiles;
+          file = ".p10k.zsh";
         }
       ];
       shellAliases = {
