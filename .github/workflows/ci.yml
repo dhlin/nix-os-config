@@ -40,4 +40,10 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - run: echo "Hello test"
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v4
+      - name: Enable nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v2
+      - name: Fix conflicted nix conf
+        run: sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before
       - run: NIXPKGS_ALLOW_INSECURE=1 nixos-rebuild switch --impure --flake .#nixos
