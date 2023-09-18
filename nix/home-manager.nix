@@ -16,6 +16,7 @@
     stateVersion = "23.05"; # Please read the comment before changing.
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
+      TEST_VAR = "1";
     };
   };
 

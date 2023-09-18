@@ -40,3 +40,4 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - run: echo "Hello test"
+      - run: sudo NIXPKGS_ALLOW_INSECURE=1 nixos-rebuild switch --impure --flake .#nixos
