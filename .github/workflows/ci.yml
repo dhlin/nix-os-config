@@ -34,3 +34,9 @@ jobs:
         run: nix --extra-experimental-features "nix-command flakes" build --impure .#darwinConfigurations.darwin.system
       - name: Apply Configuration
         run: ./result/sw/bin/darwin-rebuild switch --impure --flake .#darwin
+  nixos:
+    name: Build nixos configuration
+    runs-on: self-hosted
+    steps: 
+      - uses: actions/checkout@v3
+      - run: echo "Hello test"

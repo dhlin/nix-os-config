@@ -37,14 +37,18 @@
   security.sudo.wheelNeedsPassword = false;
 
   services = {
-    openssh =
-      {
-        enable = true;
-        settings = {
-          PasswordAuthentication = true;
-          PermitRootLogin = "no";
-        };
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = true;
+        PermitRootLogin = "no";
       };
+    };
+    github-runner = {
+      enable = true;
+      url = "https://github.com/dhlin/nix-os-config";
+      tokenFile = "/home/dhlin/github-runner.token";
+    };
   };
 
   system.stateVersion = "23.05";
