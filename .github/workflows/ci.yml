@@ -23,7 +23,7 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v4
       - name: Fix conflicted nix conf
-        run: mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin
+        run: sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin
       - name: Build Configuration
         run: nix build --impure .#darwinConfigurations.darwin.system
       - name: Apply Configuration
