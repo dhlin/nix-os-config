@@ -43,11 +43,11 @@ jobs:
       - run: echo $HOME
       - run: uname -a
       - run: echo $PATH
-      - run: alias curl='/nix/store/f954k4xbkjk6xkv4k7py5y2ys0y0r4ql-curl-8.1.1-bin/bin/curl'
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v4
-      - name: Enable nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v2
-      - name: Fix conflicted nix conf
-        run: sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before
+      # - run: alias curl='/nix/store/f954k4xbkjk6xkv4k7py5y2ys0y0r4ql-curl-8.1.1-bin/bin/curl'
+      # - name: Install Nix
+      #   uses: DeterminateSystems/nix-installer-action@v4
+      # - name: Enable nix cache
+      #   uses: DeterminateSystems/magic-nix-cache-action@v2
+      # - name: Fix conflicted nix conf
+      #   run: sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before
       - run: NIXPKGS_ALLOW_INSECURE=1 nixos-rebuild switch --impure --flake .#nixos
