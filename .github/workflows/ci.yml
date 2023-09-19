@@ -42,4 +42,4 @@ jobs:
       - run: echo $USER
       # - name: Fix conflicted nix conf
       #   run: sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before
-      - run: NIXPKGS_ALLOW_INSECURE=1 nixos-rebuild -v switch --impure --flake .#nixos
+      - run: NIXPKGS_ALLOW_INSECURE=1 nixos-rebuild -vv switch --impure --flake .#nixos
