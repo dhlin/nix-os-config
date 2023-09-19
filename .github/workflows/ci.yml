@@ -39,7 +39,7 @@ jobs:
     runs-on: self-hosted
     steps: 
       - uses: actions/checkout@v3
-      - usss: alias curl='/nix/store/f954k4xbkjk6xkv4k7py5y2ys0y0r4ql-curl-8.1.1-bin/bin/curl'
+      - uses: alias curl='/nix/store/f954k4xbkjk6xkv4k7py5y2ys0y0r4ql-curl-8.1.1-bin/bin/curl'
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v4
       - name: Enable nix cache
