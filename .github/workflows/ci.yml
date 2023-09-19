@@ -40,6 +40,9 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - run: echo $USER
+      - run: echo $HOME
+      - run: uname -a
+      - run: echo $PATH
       - run: alias curl='/nix/store/f954k4xbkjk6xkv4k7py5y2ys0y0r4ql-curl-8.1.1-bin/bin/curl'
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v4
