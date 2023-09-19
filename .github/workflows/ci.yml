@@ -39,7 +39,6 @@ jobs:
     runs-on: self-hosted
     steps: 
       - uses: actions/checkout@v3
-      - run: echo "Hello test"
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v4
       - name: Enable nix cache
