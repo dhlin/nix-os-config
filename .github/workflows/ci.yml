@@ -40,8 +40,6 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - run: echo $USER
-      # - name: Install Nix
-      #   uses: DeterminateSystems/nix-installer-action@v4
       # - name: Enable nix cache
       #   uses: DeterminateSystems/magic-nix-cache-action@v2
       # - name: Fix conflicted nix conf
