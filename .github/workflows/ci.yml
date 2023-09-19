@@ -40,8 +40,6 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - run: echo $USER
-      # - name: Enable nix cache
-      #   uses: DeterminateSystems/magic-nix-cache-action@v2
       # - name: Fix conflicted nix conf
       #   run: sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before
       - run: NIXPKGS_ALLOW_INSECURE=1 nixos-rebuild -v switch --impure --flake .#nixos
