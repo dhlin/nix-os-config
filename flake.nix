@@ -33,5 +33,12 @@
           inherit nixpkgs home-manager nix-darwin system user;
         }
       );
+
+      nixosConfigurations = (
+        import ./nix/nixos.nix {
+          user = "dhlin";
+          inherit inputs nixpkgs home-manager system;
+        }
+      );
     };
 }
