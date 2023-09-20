@@ -20,6 +20,7 @@
       auto-optimise-store = true
     '';
     gc = {
+      automatic = true;
       options = "--delete-older-than 7d";
     };
     package = pkgs.nix;
@@ -37,14 +38,13 @@
   security.sudo.wheelNeedsPassword = false;
 
   services = {
-    openssh =
-      {
-        enable = true;
-        settings = {
-          PasswordAuthentication = true;
-          PermitRootLogin = "no";
-        };
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = true;
+        PermitRootLogin = "no";
       };
+    };
   };
 
   system.stateVersion = "23.05";
