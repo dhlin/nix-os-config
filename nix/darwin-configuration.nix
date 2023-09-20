@@ -1,6 +1,10 @@
-{ config, pkgs, system, user, ... }:
-
 {
+  config,
+  pkgs,
+  system,
+  user,
+  ...
+}: {
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 

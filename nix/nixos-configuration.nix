@@ -1,6 +1,10 @@
-{ config, pkgs, system, user, ... }:
-
 {
+  config,
+  pkgs,
+  system,
+  user,
+  ...
+}: {
   imports = [
     /etc/nixos/hardware-configuration.nix # generated file in the system
   ];
@@ -27,9 +31,7 @@
     settings.experimental-features = "nix-command flakes";
   };
 
-  networking = {
-    firewall.enable = false;
-  };
+  networking = {firewall.enable = false;};
 
   nixpkgs.hostPlatform = "${system}";
 
@@ -52,7 +54,7 @@
 
   users.users."${user}" = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 }

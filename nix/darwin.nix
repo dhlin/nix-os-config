@@ -1,8 +1,13 @@
-{ nixpkgs, home-manager, nix-darwin, system, user, ... }:
-
 {
+  nixpkgs,
+  home-manager,
+  nix-darwin,
+  system,
+  user,
+  ...
+}: {
   darwin = nix-darwin.lib.darwinSystem {
-    specialArgs = { inherit system user; };
+    specialArgs = {inherit system user;};
     modules = [
       ./darwin-configuration.nix
 

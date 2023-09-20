@@ -1,11 +1,10 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home = {
-    packages = with pkgs; [
-      ripgrep
-      scc
-    ];
+    packages = with pkgs; [ripgrep scc];
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
     # introduces backwards incompatible changes.
@@ -27,15 +26,9 @@
     git = {
       enable = true;
       extraConfig = {
-        branch = {
-          autosetuprebase = "always";
-        };
-        pull = {
-          rebase = true;
-        };
-        push = {
-          default = "current";
-        };
+        branch = {autosetuprebase = "always";};
+        pull = {rebase = true;};
+        push = {default = "current";};
       };
       difftastic.enable = true;
     };
@@ -113,9 +106,8 @@
         "..." = "cd ...";
 
         # nix
-        nix = "nix --extra-experimental-features \"nix-command flakes\"";
+        nix = ''nix --extra-experimental-features "nix-command flakes"'';
       };
     };
   };
 }
-
