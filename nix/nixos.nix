@@ -1,9 +1,14 @@
-{ nixpkgs, home-manager, system, user, ... }:
-
 {
-  nixos = nixpkgs.lib.nixosSystem
+  nixpkgs,
+  home-manager,
+  system,
+  user,
+  ...
+}: {
+  nixos =
+    nixpkgs.lib.nixosSystem
     {
-      specialArgs = { inherit system user; };
+      specialArgs = {inherit system user;};
       modules = [
         ./nixos-configuration.nix
 
