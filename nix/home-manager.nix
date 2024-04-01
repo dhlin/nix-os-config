@@ -1,8 +1,13 @@
 {
   config,
   pkgs,
+  lib,
   ...
-}: {
+}: let
+  extra = "${builtins.getEnv "HOME"}/extra.nix";
+in {
+  imports = lib.optional (builtins.pathExists "${extra}") "${extra}";
+
   home = {
     packages = with pkgs; [
       ripgrep
