@@ -84,6 +84,11 @@ in {
           file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
         }
         {
+          name = "powerlevel10k-default";
+          src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/config";
+          file = "p10k-lean.zsh";
+        }
+        {
           name = "powerlevel10k-config";
           src = ../dotfiles;
           file = ".p10k.zsh";
