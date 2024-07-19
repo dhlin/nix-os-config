@@ -24,6 +24,8 @@
   } @ inputs: let
     user = builtins.getEnv "USER";
     system = builtins.currentSystem;
+
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
     homeConfigurations = (
       import ./nix/home.nix {
@@ -44,6 +46,29 @@
       }
     );
 
+    packages."${system}".nix-os-config = with pkgs;
+      writeShellScriptBin "nix-os-config"
+      (lib.optionalString stdenv.isLinux ''
+          if ${pkgs.gnugrep}/bin/grep -q "NixOS" /etc/os-release ; then
+            sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --impure --flake .#nixos
+          else
+            ${home-manager.packages.${system}.home-manager}/bin/home-manager switch --impure --flake .#home
+          fi
+        ''
+        + lib.optionalString stdenv.isDarwin ''
+          ${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --impure --flake .#darwin
+        '');
+
+    apps."${system}" = rec { 
+      nix-os-config = {
+        type = "app";
+        program = "${self.packages.${system}.nix-os-config}/bin/nix-os-config";
+      };
+
+      default = nix-os-config;
+    };
+
+    
     formatter."${system}" = nixpkgs.legacyPackages."${system}".alejandra;
   };
 }

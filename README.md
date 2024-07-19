@@ -1,21 +1,11 @@
 # nix-os-config
 
-## Install
+## Home standalone and Darwin
 ```
 git clone https://github.com/dhlin/nix-os-config
 cd nix-os-config
-alias nix="nix --extra-experimental-features \"nix-command flakes\"" 
-```
-## Home standalone
-```
-nix build --impure .#homeConfigurations.home.activationPackage
-./result/activate
-```
-
-## Darwin
-```
-nix build --impure .#darwinConfigurations.darwin.system
-./result/sw/bin/darwin-rebuild switch --impure --flake .#darwin
+alias nix="nix --extra-experimental-features \"nix-command flakes\""
+nix run --impure
 ```
 
 ## NixOS
@@ -47,7 +37,7 @@ reboot
 sudo su
 git clone ~/https://github.com/dhlin/nix-os-config
 cd nix-os-config
-nixos-rebuild switch --impure --flake .#nixos
+nix run --impure
 passwd <user> # set new password for user
 
 # login as user
