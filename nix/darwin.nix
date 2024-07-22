@@ -6,17 +6,22 @@
   user,
   ...
 }: {
-  darwin = nix-darwin.lib.darwinSystem {
+  extraModules ? [],
+  name ? "darwin",
+}: {
+  "${name}" = nix-darwin.lib.darwinSystem {
     specialArgs = {inherit system user;};
-    modules = [
-      ./darwin-configuration.nix
+    modules =
+      [
+        ./darwin-configuration.nix
 
-      home-manager.darwinModules.home-manager
-      {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.${user} = import ./home-manager.nix;
-      }
-    ];
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.${user} = import ./home-manager.nix;
+        }
+      ]
+      ++ extraModules;
   };
 }
