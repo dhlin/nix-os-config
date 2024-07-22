@@ -2,11 +2,11 @@
   nixpkgs,
   home-manager,
   system,
-  user,
   ...
 }: {
   extraModules ? [],
   name ? "nixos",
+  user,
 }: {
   "${name}" =
     nixpkgs.lib.nixosSystem
