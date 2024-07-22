@@ -37,7 +37,7 @@
       import ./nix/darwin.nix {
         inherit nixpkgs home-manager nix-darwin system user;
       }
-    ) {};
+    );
 
     nixosConfigurations = (
       import ./nix/nixos.nix {
