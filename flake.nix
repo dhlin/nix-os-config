@@ -37,7 +37,7 @@
       import ./nix/darwin.nix {
         inherit nixpkgs home-manager nix-darwin system user;
       }
-    );
+    ) {};
 
     nixosConfigurations = (
       import ./nix/nixos.nix {
@@ -59,7 +59,7 @@
           ${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --impure --flake .#darwin
         '');
 
-    apps."${system}" = rec { 
+    apps."${system}" = rec {
       nix-os-config = {
         type = "app";
         program = "${self.packages.${system}.nix-os-config}/bin/nix-os-config";
@@ -68,7 +68,6 @@
       default = nix-os-config;
     };
 
-    
     formatter."${system}" = nixpkgs.legacyPackages."${system}".alejandra;
   };
 }
