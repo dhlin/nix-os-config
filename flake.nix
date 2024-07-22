@@ -27,38 +27,44 @@
 
     pkgs = nixpkgs.legacyPackages.${system};
   in rec {
-    homeConfigurations = (
+    mkHomeConfigurations = (
       import ./nix/home.nix {
         inherit nixpkgs home-manager system user;
       }
     );
 
-    darwinFunc = (
+    mkDarwinConfigurations = (
       import ./nix/darwin.nix {
         inherit nixpkgs home-manager nix-darwin system user;
       }
     );
 
-    darwinConfigurations = darwinFunc {};
-
-    nixosConfigurations = (
+    mkNixosConfigurations = (
       import ./nix/nixos.nix {
-        user = "dhlin";
         inherit inputs nixpkgs home-manager system;
       }
     );
 
+    homeConfigurations = mkHomeConfigurations {};
+    darwinConfigurations = mkDarwinConfigurations {};
+    nixosConfigurations = mkNixosConfigurations {
+      user = "dhlin";
+    };
+
     packages."${system}".nix-os-config = with pkgs;
       writeShellScriptBin "nix-os-config"
-      (lib.optionalString stdenv.isLinux ''
+      (''
+          name="$1"
+        ''
+        + lib.optionalString stdenv.isLinux ''
           if ${pkgs.gnugrep}/bin/grep -q "NixOS" /etc/os-release ; then
-            sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --impure --flake .#nixos
+            sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --impure --flake .#''${name:=nixos}
           else
-            ${home-manager.packages.${system}.home-manager}/bin/home-manager switch --impure --flake .#home
+            ${home-manager.packages.${system}.home-manager}/bin/home-manager switch --impure --flake .#''${name:=home}
           fi
         ''
         + lib.optionalString stdenv.isDarwin ''
-          ${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --impure --flake .#darwin
+          ${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --impure --flake .#''${name:=darwin}
         '');
 
     apps."${system}" = rec {

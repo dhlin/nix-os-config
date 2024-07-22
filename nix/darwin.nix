@@ -5,8 +5,11 @@
   system,
   user,
   ...
-}: {mod ? []}: {
-  darwin = nix-darwin.lib.darwinSystem {
+}: {
+  extraModules ? [],
+  name ? "darwin",
+}: {
+  "${name}" = nix-darwin.lib.darwinSystem {
     specialArgs = {inherit system user;};
     modules =
       [
@@ -19,6 +22,6 @@
           home-manager.users.${user} = import ./home-manager.nix;
         }
       ]
-      ++ mod;
+      ++ extraModules;
   };
 }
