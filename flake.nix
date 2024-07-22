@@ -26,18 +26,20 @@
     system = builtins.currentSystem;
 
     pkgs = nixpkgs.legacyPackages.${system};
-  in {
+  in rec {
     homeConfigurations = (
       import ./nix/home.nix {
         inherit nixpkgs home-manager system user;
       }
     );
 
-    darwinConfigurations = (
+    darwinFunc = (
       import ./nix/darwin.nix {
         inherit nixpkgs home-manager nix-darwin system user;
       }
     );
+
+    darwinConfigurations = darwinFunc {};
 
     nixosConfigurations = (
       import ./nix/nixos.nix {
