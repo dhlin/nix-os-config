@@ -27,23 +27,9 @@
 
     pkgs = nixpkgs.legacyPackages.${system};
   in rec {
-    mkHomeConfigurations = (
-      import ./nix/home.nix {
-        inherit nixpkgs home-manager system user;
-      }
-    );
-
-    mkDarwinConfigurations = (
-      import ./nix/darwin.nix {
-        inherit nixpkgs home-manager nix-darwin system user;
-      }
-    );
-
-    mkNixosConfigurations = (
-      import ./nix/nixos.nix {
-        inherit inputs nixpkgs home-manager system;
-      }
-    );
+    mkHomeConfigurations = pkgs.lib.callPackageWith inputs ./nix/home.nix {inherit system user;};
+    mkDarwinConfigurations = pkgs.lib.callPackageWith inputs ./nix/darwin.nix {inherit system user;};
+    mkNixosConfigurations = pkgs.lib.callPackageWith inputs ./nix/nixos.nix {inherit system user;};
 
     homeConfigurations = mkHomeConfigurations {};
     darwinConfigurations = mkDarwinConfigurations {};
