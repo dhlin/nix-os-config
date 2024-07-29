@@ -5,7 +5,7 @@
 git clone https://github.com/dhlin/nix-os-config
 cd nix-os-config
 alias nix="nix --extra-experimental-features \"nix-command flakes\""
-nix run --impure
+nix run
 ```
 
 ## NixOS
@@ -41,4 +41,4 @@ nix run --impure
 passwd <user> # set new password for user
 
 # login as user
-```
+```q

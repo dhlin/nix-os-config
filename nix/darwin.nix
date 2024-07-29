@@ -2,8 +2,8 @@
   nixpkgs,
   home-manager,
   nix-darwin,
-  system,
-  user,
+  system ? builtins.currentSystem,
+  user ? builtins.getEnv "USER",
   ...
 }: {
   extraModules ? [],

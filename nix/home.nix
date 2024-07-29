@@ -1,8 +1,8 @@
 {
   nixpkgs,
   home-manager,
-  system,
-  user,
+  system ? builtins.currentSystem,
+  user ? builtins.getEnv "USER",
   ...
 }: {
   extraModules ? [],

@@ -22,14 +22,17 @@
     nix-darwin,
     ...
   } @ inputs: let
-    user = builtins.getEnv "USER";
-    system = builtins.currentSystem;
-
-    pkgs = nixpkgs.legacyPackages.${system};
+    forAllSystems = f:
+      nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ] (system: f nixpkgs.legacyPackages.${system});
   in rec {
-    mkHomeConfigurations = pkgs.lib.callPackageWith inputs ./nix/home.nix {inherit system user;};
-    mkDarwinConfigurations = pkgs.lib.callPackageWith inputs ./nix/darwin.nix {inherit system user;};
-    mkNixosConfigurations = pkgs.lib.callPackageWith inputs ./nix/nixos.nix {inherit system user;};
+    mkHomeConfigurations = nixpkgs.lib.callPackageWith inputs ./nix/home.nix {};
+    mkDarwinConfigurations = nixpkgs.lib.callPackageWith inputs ./nix/darwin.nix {};
+    mkNixosConfigurations = nixpkgs.lib.callPackageWith inputs ./nix/nixos.nix {};
 
     homeConfigurations = mkHomeConfigurations {};
     darwinConfigurations = mkDarwinConfigurations {};
@@ -37,31 +40,34 @@
       user = "dhlin";
     };
 
-    packages."${system}".nix-os-config = with pkgs;
-      writeShellScriptBin "nix-os-config"
-      (''
-          name="$1"
-        ''
-        + lib.optionalString stdenv.isLinux ''
-          if ${pkgs.gnugrep}/bin/grep -q "NixOS" /etc/os-release ; then
-            sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --impure --flake .#''${name:=nixos}
-          else
-            ${home-manager.packages.${system}.home-manager}/bin/home-manager switch --impure --flake .#''${name:=home}
-          fi
-        ''
-        + lib.optionalString stdenv.isDarwin ''
-          ${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --impure --flake .#''${name:=darwin}
-        '');
+    packages = forAllSystems (pkgs:
+      with pkgs; {
+        nix-os-config =
+          writeShellScriptBin "nix-os-config"
+          (''
+              name="$1"
+            ''
+            + lib.optionalString stdenv.isLinux ''
+              if ${gnugrep}/bin/grep -q "NixOS" /etc/os-release ; then
+                sudo ${nixos-rebuild}/bin/nixos-rebuild switch --impure --flake .#''${name:=nixos}
+              else
+                ${home-manager.packages.${system}.home-manager}/bin/home-manager switch --impure --flake .#''${name:=home}
+              fi
+            ''
+            + lib.optionalString stdenv.isDarwin ''
+              ${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --impure --flake .#''${name:=darwin}
+            '');
+      });
 
-    apps."${system}" = rec {
+    apps = forAllSystems (pkgs: rec {
       nix-os-config = {
         type = "app";
-        program = "${self.packages.${system}.nix-os-config}/bin/nix-os-config";
+        program = "${self.packages.${pkgs.system}.nix-os-config}/bin/nix-os-config";
       };
 
       default = nix-os-config;
-    };
+    });
 
-    formatter."${system}" = nixpkgs.legacyPackages."${system}".alejandra;
+    formatter = forAllSystems (pkgs: pkgs.alejandra);
   };
 }

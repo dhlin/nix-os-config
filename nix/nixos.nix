@@ -1,7 +1,7 @@
 {
   nixpkgs,
   home-manager,
-  system,
+  system ? builtins.currentSystem,
   ...
 }: {
   extraModules ? [],
