@@ -38,6 +38,9 @@
     darwinConfigurations = mkDarwinConfigurations {};
     nixosConfigurations = mkNixosConfigurations {
       user = "dhlin";
+      extraModules = [
+        /etc/nixos/hardware-configuration.nix
+      ];
     };
 
     packages = forAllSystems (pkgs:

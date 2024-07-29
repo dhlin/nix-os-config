@@ -5,10 +5,6 @@
   user,
   ...
 }: {
-  imports = [
-    /etc/nixos/hardware-configuration.nix # generated file in the system
-  ];
-
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     loader = {
