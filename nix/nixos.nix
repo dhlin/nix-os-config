@@ -5,6 +5,7 @@
   ...
 }: {
   extraModules ? [],
+  extraHomeModules ? [],
   name ? "nixos",
   user,
 }: {
@@ -21,6 +22,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${user} = import ./home-manager.nix;
+            home-manager.extraSpecialArgs = {inherit extraHomeModules;};
           }
         ]
         ++ extraModules;

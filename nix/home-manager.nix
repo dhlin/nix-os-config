@@ -2,11 +2,10 @@
   config,
   pkgs,
   lib,
+  extraHomeModules,
   ...
-}: let
-  extra = "${builtins.getEnv "HOME"}/extra.nix";
-in {
-  imports = lib.optional (builtins.pathExists "${extra}") "${extra}";
+}: {
+  imports = extraHomeModules;
 
   home = {
     packages = with pkgs; [

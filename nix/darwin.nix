@@ -7,6 +7,7 @@
   ...
 }: {
   extraModules ? [],
+  extraHomeModules ? [],
   name ? "darwin",
 }: {
   "${name}" = nix-darwin.lib.darwinSystem {
@@ -20,6 +21,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.${user} = import ./home-manager.nix;
+          home-manager.extraSpecialArgs = {inherit extraHomeModules;};
         }
       ]
       ++ extraModules;
