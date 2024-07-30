@@ -3,15 +3,19 @@
   pkgs,
   system,
   user,
+  isWSL,
   ...
 }: {
-  boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
-    };
-  };
+  boot =
+    if !isWSL
+    then {
+      kernelPackages = pkgs.linuxPackages_latest;
+      loader = {
+        efi.canTouchEfiVariables = true;
+        systemd-boot.enable = true;
+      };
+    }
+    else {};
 
   i18n.defaultLocale = "en_US.UTF-8";
 

@@ -1,6 +1,7 @@
 {
   nixpkgs,
   home-manager,
+  nixos-wsl,
   system ? builtins.currentSystem,
   ...
 }: {
@@ -8,14 +9,25 @@
   extraHomeModules ? [],
   name ? "nixos",
   user,
+  isWSL ? false,
 }: {
   "${name}" =
     nixpkgs.lib.nixosSystem
     {
-      specialArgs = {inherit system user;};
+      specialArgs = {inherit system user isWSL;};
       modules =
         [
           ./nixos-configuration.nix
+
+          (
+            if isWSL
+            then
+              nixos-wsl.nixosModules.wsl
+              // {
+                wsl.enable = true;
+              }
+            else {}
+          )
 
           home-manager.nixosModules.home-manager
           {
