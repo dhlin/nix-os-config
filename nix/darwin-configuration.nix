@@ -5,8 +5,11 @@
   user,
   ...
 }: {
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  services = {
+    # Auto upgrade nix package and the daemon service.
+    nix-daemon.enable = true;
+    tailscale.enable = true;
+  };
 
   nix = {
     package = pkgs.nix;
