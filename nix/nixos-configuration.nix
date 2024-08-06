@@ -48,7 +48,6 @@
     tailscale.enable = true;
   };
 
-  system.stateVersion = "23.05";
   time.timeZone = "America/Los_Angeles";
 
   users.users."${user}" = {
