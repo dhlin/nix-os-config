@@ -41,4 +41,4 @@ nix run --impure
 passwd <user> # set new password for user
 
 # login as user
-```q
+```
