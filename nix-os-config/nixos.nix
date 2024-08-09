@@ -8,8 +8,8 @@
   extraHomeModules ? [],
   name ? "nixos",
   user,
-  stateVersion ? "23.05",
-  homeStateVersion ? "23.05",
+  stateVersion ? "24.05",
+  homeStateVersion ? "24.05",
 }: {
   "${name}" =
     nixpkgs.lib.nixosSystem

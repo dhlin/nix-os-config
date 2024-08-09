@@ -10,7 +10,7 @@
   extraHomeModules ? [],
   name ? "darwin",
   stateVersion ? 4,
-  homeStateVersion ? "23.05",
+  homeStateVersion ? "24.05",
 }: {
   "${name}" = nix-darwin.lib.darwinSystem {
     specialArgs = {inherit system user;};

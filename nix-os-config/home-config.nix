@@ -65,7 +65,7 @@
 
     zsh = {
       enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       defaultKeymap = "emacs";
       initExtra = ''
         bindkey \^U backward-kill-line
