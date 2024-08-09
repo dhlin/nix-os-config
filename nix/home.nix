@@ -21,7 +21,7 @@ in {
           homeDirectory = "/home/${user}";
         };
       }
-      ./home-manager.nix
+      ./home-config.nix
     ];
   };
 }
