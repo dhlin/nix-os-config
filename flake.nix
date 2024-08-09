@@ -30,9 +30,9 @@
         "aarch64-darwin"
       ] (system: f nixpkgs.legacyPackages.${system});
   in rec {
-    mkHomeConfigurations = nixpkgs.lib.callPackageWith inputs ./nix/home.nix {};
-    mkDarwinConfigurations = nixpkgs.lib.callPackageWith inputs ./nix/darwin.nix {};
-    mkNixosConfigurations = nixpkgs.lib.callPackageWith inputs ./nix/nixos.nix {};
+    mkHomeConfigurations = nixpkgs.lib.callPackageWith inputs ./nix-os-config/home.nix {};
+    mkDarwinConfigurations = nixpkgs.lib.callPackageWith inputs ./nix-os-config/darwin.nix {};
+    mkNixosConfigurations = nixpkgs.lib.callPackageWith inputs ./nix-os-config/nixos.nix {};
 
     homeConfigurations = mkHomeConfigurations {};
     darwinConfigurations = mkDarwinConfigurations {};
