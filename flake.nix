@@ -34,12 +34,23 @@
     mkDarwinConfigurations = nixpkgs.lib.callPackageWith inputs ./nix-os-config/darwin.nix {};
     mkNixosConfigurations = nixpkgs.lib.callPackageWith inputs ./nix-os-config/nixos.nix {};
 
-    homeConfigurations = mkHomeConfigurations {};
-    darwinConfigurations = mkDarwinConfigurations {};
+    homeConfigurations = mkHomeConfigurations {
+      extraHomeModules = [
+        ./custom/alias.nix
+      ];
+    };
+    darwinConfigurations = mkDarwinConfigurations {
+      extraHomeModules = [
+        ./custom/alias.nix
+      ];
+    };
     nixosConfigurations = mkNixosConfigurations {
       user = "dhlin";
       extraModules = [
         /etc/nixos/hardware-configuration.nix
+      ];
+      extraHomeModules = [
+        ./custom/alias.nix
       ];
     };
 
