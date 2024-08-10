@@ -16,15 +16,16 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   nix = {
-    extraOptions = ''
-      auto-optimise-store = true
-    '';
+    package = pkgs.nix;
     gc = {
       automatic = true;
+      dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    package = pkgs.nix;
-    settings.experimental-features = "nix-command flakes";
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = "nix-command flakes";
+    };
   };
 
   networking = {

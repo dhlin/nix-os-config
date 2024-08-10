@@ -19,10 +19,10 @@
       options = "--delete-older-than 7d";
     };
     useDaemon = true;
-    settings.experimental-features = "nix-command flakes";
-    extraOptions = ''
-      auto-optimise-store = true
-    '';
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = "nix-command flakes";
+    };
   };
 
   programs.zsh.enable = true;

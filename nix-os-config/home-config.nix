@@ -118,9 +118,6 @@
         ll = "ls -laG";
         ".." = "cd ..";
         "..." = "cd ...";
-
-        # nix
-        nix = "nix --extra-experimental-features \"nix-command flakes\"";
       };
     };
   };
