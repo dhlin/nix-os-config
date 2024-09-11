@@ -1,6 +1,7 @@
 {
   nixpkgs,
   home-manager,
+  disko,
   system ? builtins.currentSystem,
   ...
 }: {
@@ -26,6 +27,8 @@
             home-manager.users.${user} = import ./home-config.nix;
             home-manager.extraSpecialArgs = {inherit homeStateVersion extraHomeModules;};
           }
+
+          disko.nixosModules.disko
 
           {
             system.stateVersion = "${stateVersion}";

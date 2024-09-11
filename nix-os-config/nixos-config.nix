@@ -8,8 +8,13 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
+      # efi.canTouchEfiVariables = true;
+      # systemd-boot.enable = true;
+      grub = {
+        enable = true;
+        efiSupport = true;
+        efiInstallAsRemovable = true;
+      };
     };
   };
 

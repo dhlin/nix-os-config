@@ -13,6 +13,11 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -47,6 +52,7 @@
     nixosConfigurations = mkNixosConfigurations {
       user = "dhlin";
       extraModules = [
+        ./nix-os-config/disko-config.nix
         /etc/nixos/hardware-configuration.nix
       ];
       extraHomeModules = [
