@@ -11,8 +11,9 @@
               size = "1M";
               type = "EF02"; # for grub MBR
             };
-            ESP = {
-              size = "512M";
+            esp = {
+              start = "1M";
+              end = "512M";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -20,9 +21,9 @@
                 mountpoint = "/boot";
               };
             };
-            primary = {
-              start = "512MiB";
-              end = "-1GiB";
+            root = {
+              start = "512M";
+              end = "-1G";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -30,7 +31,7 @@
               };
             };
             swap = {
-              start = "-1GiB";
+              start = "-1G";
               end = "100%";
               content = {
                 type = "swap";
