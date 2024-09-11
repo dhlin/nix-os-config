@@ -12,8 +12,7 @@
               type = "EF02"; # for grub MBR
             };
             esp = {
-              start = "1M";
-              end = "512M";
+              size = "512M";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -22,7 +21,6 @@
               };
             };
             root = {
-              start = "512M";
               end = "-1G";
               content = {
                 type = "filesystem";
@@ -31,7 +29,6 @@
               };
             };
             swap = {
-              start = "-1G";
               end = "100%";
               content = {
                 type = "swap";
