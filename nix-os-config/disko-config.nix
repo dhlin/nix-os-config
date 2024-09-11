@@ -29,7 +29,7 @@
               };
             };
             swap = {
-              end = "100%";
+              size = "100%";
               content = {
                 type = "swap";
               };
