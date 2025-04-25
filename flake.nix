@@ -43,6 +43,9 @@
       homeModules = defaultHomeModules;
     };
     darwinConfigurations = mkDarwinConfigurations {
+      extraModules = [
+        ./modules/darwin.nix
+      ];
       homeModules = defaultHomeModules;
     };
     nixosConfigurations = mkNixosConfigurations {
