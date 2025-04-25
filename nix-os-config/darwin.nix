@@ -7,7 +7,7 @@
   ...
 }: {
   extraModules ? [],
-  extraHomeModules ? [],
+  homeModules ? [],
   name ? "darwin",
   stateVersion ? 4,
   homeStateVersion ? "24.05",
@@ -22,8 +22,10 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${user} = import ./home-config.nix;
-          home-manager.extraSpecialArgs = {inherit homeStateVersion extraHomeModules;};
+          home-manager.users.${user} = {
+            imports = homeModules;
+            home.stateVersion = homeStateVersion;
+          };
         }
 
         {

@@ -1,13 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  homeStateVersion,
-  extraHomeModules,
-  ...
-}: {
-  imports = extraHomeModules;
-
+{pkgs, ...}: {
   home = {
     packages = with pkgs; [
       git-extras
@@ -15,7 +6,6 @@
       scc
       tig
     ];
-    stateVersion = homeStateVersion;
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
     };
@@ -87,12 +77,6 @@
           file = ".p10k.zsh";
         }
       ];
-      shellAliases = {
-        # file
-        ll = "ls -laG";
-        ".." = "cd ..";
-        "..." = "cd ../..";
-      };
     };
   };
 }

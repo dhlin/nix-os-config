@@ -1,5 +1,10 @@
 {
   programs.zsh.shellAliases = {
+    # file
+    ll = "ls -laG";
+    ".." = "cd ..";
+    "..." = "cd ../..";
+
     # docker
     de = "docker exec -it";
     dep = "de --privileged";
