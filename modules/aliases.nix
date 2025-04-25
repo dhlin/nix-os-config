@@ -1,5 +1,5 @@
 {
-  programs.zsh.shellAliases = {
+  home.shellAliases = {
     # file
     ll = "ls -laG";
     ".." = "cd ..";
