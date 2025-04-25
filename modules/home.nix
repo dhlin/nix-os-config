@@ -5,11 +5,14 @@
       ripgrep
       scc
       tig
+      meslo-lgs-nf
     ];
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
     };
   };
+
+  fonts.fontconfig.enable = true;
 
   programs = {
     direnv.enable = true;
