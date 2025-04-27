@@ -6,6 +6,7 @@
   ...
 }: {
   homeModules ? [],
+  homeArgs ? {},
   name ? "home",
   homeStateVersion ? "24.05",
 }: let
@@ -13,6 +14,7 @@
 in {
   "${name}" = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
+    extraSpecialArgs = homeArgs;
     modules =
       [
         {

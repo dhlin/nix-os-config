@@ -8,6 +8,7 @@
 }: {
   extraModules ? [],
   homeModules ? [],
+  homeArgs ? {},
   name ? "darwin",
   stateVersion ? 4,
   homeStateVersion ? "24.05",
@@ -26,6 +27,7 @@ in {
             imports = homeModules;
             home.stateVersion = homeStateVersion;
           };
+          home-manager.extraSpecialArgs = homeArgs;
         }
 
         {
