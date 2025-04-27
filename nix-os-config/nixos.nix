@@ -6,6 +6,7 @@
 }: {
   extraModules ? [],
   homeModules ? [],
+  homeArgs ? {},
   name ? "nixos",
   user,
   stateVersion ? "24.05",
@@ -27,6 +28,7 @@
               imports = homeModules;
               home.stateVersion = homeStateVersion;
             };
+            home-manager.extraSpecialArgs = homeArgs;
           }
 
           {
