@@ -9,8 +9,8 @@
   homeArgs ? {},
   name ? "nixos",
   user,
-  stateVersion ? "24.05",
-  homeStateVersion ? "24.05",
+  stateVersion ? "25.05",
+  homeStateVersion ? "25.05",
 }: {
   "${name}" =
     nixpkgs.lib.nixosSystem

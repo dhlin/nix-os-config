@@ -60,7 +60,7 @@
       enable = true;
       autosuggestion.enable = true;
       defaultKeymap = "emacs";
-      initExtra = ''
+      initContent = ''
         bindkey \^U backward-kill-line
       '';
       plugins = [

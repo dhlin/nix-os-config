@@ -8,7 +8,7 @@
   homeModules ? [],
   homeArgs ? {},
   name ? "home",
-  homeStateVersion ? "24.05",
+  homeStateVersion ? "25.05",
 }: let
   pkgs = nixpkgs.legacyPackages.${system};
 in {

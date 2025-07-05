@@ -3,15 +3,20 @@
   home-manager,
   nix-darwin,
   system ? builtins.currentSystem,
-  user ? builtins.getEnv "USER",
+  user ? (let
+    sudoUser = builtins.getEnv "SUDO_USER";
+  in
+    if sudoUser != ""
+    then sudoUser
+    else builtins.getEnv "USER"),
   ...
 }: {
   extraModules ? [],
   homeModules ? [],
   homeArgs ? {},
   name ? "darwin",
-  stateVersion ? 4,
-  homeStateVersion ? "24.05",
+  stateVersion ? 5,
+  homeStateVersion ? "25.05",
 }: let
   pkgs = nixpkgs.legacyPackages.${system};
 in {
@@ -38,15 +43,12 @@ in {
               interval.Day = 7;
               options = "--delete-older-than 7d";
             };
-            useDaemon = true;
             settings = {
-              auto-optimise-store = true;
               experimental-features = "nix-command flakes";
             };
+            optimise.automatic = true;
           };
           nixpkgs.hostPlatform = "${system}";
-          # Auto upgrade nix package and the daemon service.
-          services.nix-daemon.enable = true;
           system.stateVersion = stateVersion;
           users.users."${user}" = {
             home = "/Users/${user}";
