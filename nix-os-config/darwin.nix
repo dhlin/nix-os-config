@@ -48,8 +48,14 @@ in {
             };
             optimise.automatic = true;
           };
+
           nixpkgs.hostPlatform = "${system}";
-          system.stateVersion = stateVersion;
+
+          system = {
+            stateVersion = stateVersion;
+            primaryUser = "${user}";
+          };
+
           users.users."${user}" = {
             home = "/Users/${user}";
           };
