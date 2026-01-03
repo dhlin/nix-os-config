@@ -1,9 +1,11 @@
 {
   home.shellAliases = {
-    # file
+    # ops
     ll = "ls -laG";
     ".." = "cd ..";
     "..." = "cd ../..";
+    pgrep = "ps aux | grep";
+    rgf = "rg --files";
 
     # docker
     de = "docker exec -it";
