@@ -8,7 +8,7 @@
   homeModules ? [],
   homeArgs ? {},
   name ? "home",
-  homeStateVersion ? "25.05",
+  homeStateVersion ? nixpkgs.lib.trivial.release,
 }: let
   pkgs = nixpkgs.legacyPackages.${system};
 in {

@@ -21,7 +21,7 @@
 
     git = {
       enable = true;
-      extraConfig = {
+      settings = {
         branch = {
           autosetuprebase = "always";
         };
@@ -32,7 +32,11 @@
           default = "current";
         };
       };
-      difftastic.enable = true;
+    };
+
+    difftastic = {
+      enable = true;
+      git.enable = true;
     };
 
     home-manager.enable = true;

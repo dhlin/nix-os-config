@@ -2,15 +2,15 @@
   description = "Nix Flake for OS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -56,7 +56,9 @@
       homeModules = defaultHomeModules;
     };
 
-    packages = forAllSystems (pkgs:
+    packages = forAllSystems (pkgs: let
+      system = pkgs.stdenv.hostPlatform.system;
+    in
       with pkgs; {
         nix-os-config =
           writeShellScriptBin "nix-os-config"
@@ -75,10 +77,12 @@
             '');
       });
 
-    apps = forAllSystems (pkgs: rec {
+    apps = forAllSystems (pkgs: let
+      system = pkgs.stdenv.hostPlatform.system;
+    in rec {
       nix-os-config = {
         type = "app";
-        program = "${self.packages.${pkgs.system}.nix-os-config}/bin/nix-os-config";
+        program = "${self.packages.${system}.nix-os-config}/bin/nix-os-config";
       };
 
       default = nix-os-config;

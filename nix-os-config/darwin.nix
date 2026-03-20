@@ -16,7 +16,7 @@
   homeArgs ? {},
   name ? "darwin",
   stateVersion ? 5,
-  homeStateVersion ? "25.05",
+  homeStateVersion ? nixpkgs.lib.trivial.release,
 }: let
   pkgs = nixpkgs.legacyPackages.${system};
 in {
