@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  system,
-  user,
-  ...
-}: {
+{pkgs, ...}: {
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     loader = {
@@ -16,23 +10,17 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   nix = {
-    package = pkgs.nix;
     gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = "nix-command flakes";
-    };
+    settings.auto-optimise-store = true;
   };
 
   networking = {
     firewall.enable = false;
   };
-
-  nixpkgs.hostPlatform = "${system}";
 
   programs.zsh.enable = true;
 
@@ -50,10 +38,4 @@
   };
 
   time.timeZone = "America/Los_Angeles";
-
-  users.users."${user}" = {
-    isNormalUser = true;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
-  };
 }

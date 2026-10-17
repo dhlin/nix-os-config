@@ -37,7 +37,7 @@ reboot
 sudo su
 git clone ~/https://github.com/dhlin/nix-os-config
 cd nix-os-config
-nix run --impure
+nix run
 passwd <user> # set new password for user
 
 # login as user

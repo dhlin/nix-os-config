@@ -1,43 +1,8 @@
 {pkgs, ...}: {
-  home = {
-    packages = with pkgs; [
-      git-extras
-      ripgrep
-      scc
-      tig
-      meslo-lgs-nf
-    ];
-    sessionVariables = {
-      DIRENV_LOG_FORMAT = "";
-    };
-  };
-
-  fonts.fontconfig.enable = true;
-
   programs = {
     direnv.enable = true;
 
     fzf.enable = true;
-
-    git = {
-      enable = true;
-      settings = {
-        branch = {
-          autosetuprebase = "always";
-        };
-        pull = {
-          rebase = true;
-        };
-        push = {
-          default = "current";
-        };
-      };
-    };
-
-    difftastic = {
-      enable = true;
-      git.enable = true;
-    };
 
     home-manager.enable = true;
 
@@ -80,7 +45,7 @@
         }
         {
           name = "powerlevel10k-config";
-          src = ../dotfiles;
+          src = ../../dotfiles;
           file = ".p10k.zsh";
         }
       ];
