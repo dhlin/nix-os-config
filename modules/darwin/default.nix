@@ -5,6 +5,8 @@
 
   programs.zsh.enable = true;
 
+  nixpkgs.hostPlatform = "aarch64-darwin";
+
   nix = {
     gc = {
       automatic = true;

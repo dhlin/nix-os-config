@@ -20,6 +20,7 @@
 
   networking = {
     firewall.enable = false;
+    hostName = "nixos";
   };
 
   programs.zsh.enable = true;
