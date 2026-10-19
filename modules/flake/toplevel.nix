@@ -3,6 +3,7 @@
     inputs.nixos-unified.flakeModules.default
     inputs.nixos-unified.flakeModules.autoWire
     ./lib.nix
+    ./pkgs.nix
   ];
   perSystem = {
     inputs',
