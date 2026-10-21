@@ -30,7 +30,7 @@
 
   networking = {
     firewall.enable = false;
-    hostName = "nixos";
+    hostName = lib.mkDefault "nixos";
   };
 
   programs.zsh.enable = true;
