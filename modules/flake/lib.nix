@@ -11,6 +11,13 @@
       inputs',
     }:
       pkgs.writeShellScriptBin "nix-os-config" (''
+        # Run via `nix run` from the clone you want to rebuild from: on a NixOS
+        # install that is ~/nix-os-config, not the ISO clone the installer ran in.
+        #
+        #   nix run               # the "default" configuration
+        #   nix run . -- laptop   # the configuration named "laptop"
+        #   nix run . -- laptop --show-trace   # flags after the name go to the rebuild
+        #
         # An optional leading configuration name, then flags for the rebuild.
         name=default
         case "''${1:-}" in

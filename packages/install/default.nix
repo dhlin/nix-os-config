@@ -1,4 +1,4 @@
-# The installer run from a booted NixOS ISO, as `nix run --impure .#install`.
+# The installer run from a booted NixOS ISO, as `nix run .#install`.
 # The script itself lives next door in install.sh.
 #
 # Autowired by nixos-unified, which calls this with `callPackage fn {}`, so

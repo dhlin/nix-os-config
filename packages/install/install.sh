@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installs this flake onto a booted machine's disk: 'nix run --impure .#install'
+# Installs this flake onto a booted machine's disk: 'nix run .#install'
 # from a clone of the flake, as root, on a NixOS ISO.
 #
 # nixos-generate-config, nixos-install and nixos-enter come from the booted
@@ -10,8 +10,8 @@ set -euo pipefail
 # An optional leading configuration name, then flags for nixos-install. Matches
 # how `nix run` activates a configuration:
 #
-#   nix run --impure .#install              # nixosConfigurations.default
-#   nix run --impure .#install -- laptop    # nixosConfigurations.laptop
+#   nix run .#install              # nixosConfigurations.default
+#   nix run .#install -- laptop    # nixosConfigurations.laptop
 name=default
 case "${1:-}" in
   "" | -*) ;;
@@ -62,6 +62,11 @@ nixos-generate-config --no-filesystems --show-hardware-config \
 user=$(nix --extra-experimental-features "nix-command flakes" eval --impure --raw \
   ".#nixosConfigurations.$name.config.users.primaryUser")
 
+[ -n "$user" ] && [ "$user" != root ] || {
+  echo "install: users.primaryUser is '$user'; set it to a non-root login name" >&2
+  exit 1
+}
+
 # The placeholder below is substituted with the disko CLI from this flake's
 # disko input. --yes-wipe-all-disks: the destroy step prompts otherwise.
 @disko@ --mode destroy,format,mount --flake ".#$name" --yes-wipe-all-disks
@@ -74,8 +79,16 @@ cp /etc/nixos/hardware-configuration.nix /mnt/etc/nixos/
 # Installed from the clone itself; the copy below is for the booted system.
 nixos-install --impure --no-root-passwd --flake ".#$name" "$@"
 
+# nixos-install activates the new system, which is what creates the account. If
+# that did not happen, say so now instead of failing in the chown or passwd below.
+nixos-enter --silent --root /mnt -- id "$user" >/dev/null || {
+  echo "install: user '$user' does not exist in the installed system" >&2
+  exit 1
+}
+
 # Carry the flake (git metadata included, autowiring needs it) into the primary
-# user's home, which activation above has just created. git refuses to read a
+# user's home, which activation above has just created. Later rebuilds are
+# `nix run` from that copy (~/nix-os-config), not from this ISO clone. git refuses to read a
 # repository owned by another user ("dubious ownership"), so hand the copy over
 # inside the new root, where the account exists.
 mkdir -p "/mnt/home/$user"
