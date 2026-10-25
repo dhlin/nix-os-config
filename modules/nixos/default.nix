@@ -1,15 +1,11 @@
 {
-  config,
   lib,
   pkgs,
   ...
 }: {
   imports = [
-    ./state.nix
-    ./user.nix
+    ../common
   ];
-
-  home-manager.users.${config.users.primaryUser}.imports = [../home/default.nix];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -21,23 +17,12 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-    settings.auto-optimise-store = true;
-  };
-
   networking = {
     firewall.enable = false;
-    hostName = "nixos";
+    hostName = lib.mkDefault "nixos";
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  programs.zsh.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -49,7 +34,6 @@
         PermitRootLogin = "no";
       };
     };
-    tailscale.enable = true;
   };
 
   time.timeZone = "America/Los_Angeles";

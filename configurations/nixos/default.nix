@@ -19,5 +19,5 @@ in {
     homeStateVersion = "25.11";
   };
 
-  users.primaryUser = "dhlin";
+  nix-os-config.primaryUser = "dhlin";
 }
