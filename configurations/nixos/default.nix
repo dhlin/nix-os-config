@@ -1,28 +1,22 @@
 {
   flake,
-  pkgs,
+  lib,
   ...
 }: let
   inherit (flake) inputs;
   inherit (inputs) self;
-  username = "dhlin";
+  hardware = /etc/nixos/hardware-configuration.nix;
 in {
-  imports = [
-    self.nixosModules.default
-    /etc/nixos/hardware-configuration.nix
-  ];
+  imports =
+    [
+      self.nixosModules.default
+    ]
+    ++ lib.optional (builtins.pathExists hardware) hardware;
 
-  networking.hostName = "nixos";
-
-  users.users.${username} = {
-    isNormalUser = true;
-    extraGroups = ["wheel"];
-    shell = pkgs.zsh;
+  nix-os-config = {
+    stateVersion = "25.11";
+    homeStateVersion = "25.11";
   };
 
-  home-manager.users.${username}.imports = [../home/default.nix];
-
-  nix.settings.trusted-users = ["root" username];
-
-  system.stateVersion = "25.11";
+  users.primaryUser = "dhlin";
 }
