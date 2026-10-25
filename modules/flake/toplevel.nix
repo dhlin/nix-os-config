@@ -41,6 +41,9 @@
         darwin-rebuild = inputs.nix-darwin.packages.${system}.darwin-rebuild or null;
         home-manager = inputs.home-manager.packages.${system}.home-manager;
       };
+      # use mkDefault, otherwise this repo's own autowired definition would conflict
+      # with these ones.
+      install = lib.mkDefault inputs.nix-os-config.packages.${system}.install;
       default = lib.mkDefault config.packages.nix-os-config;
     };
   };

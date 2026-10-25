@@ -10,6 +10,7 @@ in {
   imports =
     [
       self.nixosModules.default
+      self.nixosModules.disk
     ]
     ++ lib.optional (builtins.pathExists hardware) hardware;
 
