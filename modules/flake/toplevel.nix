@@ -38,8 +38,8 @@
 
     packages = {
       nix-os-config = pkgs.callPackage ../../pkgs/nix-os-config.nix {
-        darwin-rebuild = inputs.nix-darwin.packages.${system}.darwin-rebuild or null;
-        home-manager = inputs.home-manager.packages.${system}.home-manager;
+        inherit (inputs.nix-darwin.packages.${system}) darwin-rebuild;
+        inherit (inputs.home-manager.packages.${system}) home-manager;
       };
       # use mkDefault, otherwise this repo's own autowired definition would conflict
       # with these ones.
