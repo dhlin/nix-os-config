@@ -11,6 +11,7 @@ in {
     [
       self.nixosModules.default
       self.nixosModules.disk
+      self.nixosModules.extra
     ]
     ++ lib.optional (builtins.pathExists hardware) hardware;
 

@@ -30,6 +30,19 @@ writeShellScriptBin "nix-os-config" (''
     # Evaluating the configurations reads $USER / $SUDO_USER, so --impure is
     # always on; any further arguments go to the rebuild command as given.
     set -- --impure --flake ".#$name" "$@"
+
+    # Link $NIX_OS_CONFIG_EXTRA_MODULES to the default location for later runs
+    if [ -n "''${NIX_OS_CONFIG_EXTRA_MODULES:-}" ]; then
+      extra=$(cd "$NIX_OS_CONFIG_EXTRA_MODULES" && pwd -P) || exit 1
+      link="$HOME/.config/nix-os-config/modules"
+      if [ -d "$link" ] && [ ! -L "$link" ]; then
+        echo "nix-os-config: $link is a directory; move it away to link $extra" >&2
+        exit 1
+      fi
+      mkdir -p "$(dirname "$link")"
+      ln -sfn "$extra" "$link"
+      export NIX_OS_CONFIG_EXTRA_MODULES="$extra"
+    fi
   ''
   + lib.optionalString stdenv.isDarwin ''
     sudo ${darwin-rebuild}/bin/darwin-rebuild switch "$@"
