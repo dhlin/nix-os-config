@@ -30,13 +30,16 @@ writeShellScriptBin "nix-os-config" (''
     # Evaluating the configurations reads $USER / $SUDO_USER, so --impure is
     # always on; any further arguments go to the rebuild command as given.
     set -- --impure --flake ".#$name" "$@"
+
+    # Pass the extra modules ENV sudo commands
+    extra="''${NIX_OS_CONFIG_EXTRA_MODULES:-}"
   ''
   + lib.optionalString stdenv.isDarwin ''
-    sudo ${darwin-rebuild}/bin/darwin-rebuild switch "$@"
+    sudo env NIX_OS_CONFIG_EXTRA_MODULES="$extra" ${darwin-rebuild}/bin/darwin-rebuild switch "$@"
   ''
   + lib.optionalString stdenv.isLinux ''
     if [ -e /etc/NIXOS ]; then
-      sudo ${nixos-rebuild}/bin/nixos-rebuild switch "$@"
+      sudo env NIX_OS_CONFIG_EXTRA_MODULES="$extra" ${nixos-rebuild}/bin/nixos-rebuild switch "$@"
     else
       ${home-manager}/bin/home-manager switch "$@"
     fi

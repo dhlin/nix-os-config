@@ -4,6 +4,7 @@
 in {
   imports = [
     self.darwinModules.default
+    self.darwinModules.extra
   ];
 
   nix-os-config = {
