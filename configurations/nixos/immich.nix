@@ -8,8 +8,4 @@ in {
     ./default.nix
     self.nixosModules.immich
   ];
-
-  # Set per machine after checking `lsblk` and formatting the disk, e.g.
-  immich.mediaDevice = "/dev/sdb";
-  immich.postgresVersion = "18";
 }
