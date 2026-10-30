@@ -1,19 +1,13 @@
-{
-  flake,
-  lib,
-  ...
-}: let
+{flake, ...}: let
   inherit (flake) inputs;
   inherit (inputs) self;
-  hardware = /etc/nixos/hardware-configuration.nix;
 in {
-  imports =
-    [
-      self.nixosModules.default
-      self.nixosModules.disk
-      self.nixosModules.extra
-    ]
-    ++ lib.optional (builtins.pathExists hardware) hardware;
+  imports = [
+    self.nixosModules.default
+    self.nixosModules.disk
+    self.nixosModules.extra
+    self.nixosModules.hardware
+  ];
 
   nix-os-config = {
     stateVersion = "25.11";
