@@ -5,8 +5,9 @@
   ...
 }: let
   # Already-formatted filesystem to mount. Format it yourself first,
-  # e.g. `mkfs.ext4 -L immich-media /dev/sdb`.
-  mediaDevice = "/dev/sdb";
+  # e.g. `mkfs.ext4 -L immich-media /dev/sdX`. Referenced by label because
+  # /dev/sdX names are not stable across reboots.
+  mediaDevice = "/dev/disk/by-label/immich-media";
 
   postgresPackage = pkgs.postgresql_18;
 
