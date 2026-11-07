@@ -5,6 +5,7 @@
 }: {
   imports = [
     ../common
+    ./system-tools.nix
   ];
 
   boot = {
